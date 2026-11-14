@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DukaanMitra - Smart Shop Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app">
+
+        <aside class="sidebar">
+            <div class="brand">
+                <span class="brand-icon">🛒</span>
+                <div>
+                    <h2>DukaanMitra</h2>
+                    <small>Smart Shop Assistant</small>
+                </div>
+            </div>
+
+            <nav>
+                <button class="nav-btn active" data-page="dashboard">🏠 Dashboard</button>
+                <button class="nav-btn" data-page="customers">👥 Customers</button>
+                <button class="nav-btn" data-page="inventory">📦 Inventory</button>
+                <button class="nav-btn" data-page="sales">💰 Sales</button>
+                <button class="nav-btn" data-page="assistant">🎙️ Voice Assistant</button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <span>Made for Indian small shops</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <h2 id="page-title">Dashboard</h2>
+                    <p>Welcome to your smart shop!</p>
+                </div>
+                <div class="shop-label">🏪 My Kirana Store</div>
+            </header>
+
+            <section id="dashboard" class="page active">
+
+                <div class="welcome">
+                    <div>
+                        <h1>Namaste, Dukandaar! 👋</h1>
+                        <p>Manage your shop with your voice.</p>
+                    </div>
+                    <button class="primary-btn" onclick="showPage('assistant')">
+                        🎙️ Speak Now
+                    </button>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span>Today's Sales</span>
+                        <h2 id="total-sales">₹0</h2>
+                        <small>Recorded sales</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <span>Total Udhaar</span>
+                        <h2 id="total-credit">₹0</h2>
+                        <small>Customer pending balance</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <span>Customers</span>
+                        <h2 id="total-customers">0</h2>
+                        <small>Registered customers</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <span>Low Stock</span>
+                        <h2 id="low-stock">0</h2>
+                        <small>Items need attention</small>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3>Quick Actions</h3>
+                    <div class="quick-actions">
+                        <button onclick="showPage('customers')">➕ Add Customer</button>
+                        <button onclick="showPage('sales')">💰 Record Sale</button>
+                        <button onclick="showPage('inventory')">📦 Manage Stock</button>
+                        <button onclick="showPage('assistant')">🎙️ Voice Command</button>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3>Recent Activity</h3>
+                    <div id="recent-activity">
+                        <p class="empty">No activity yet. Start using DukaanMitra!</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <section id="customers" class="page">
+                <div class="content-card">
+                    <h3>Customer Management</h3>
+                    <form id="customer-form">
+                        <input id="customer-name" placeholder="Customer name" required>
+                        <input id="customer-phone" placeholder="Phone number (optional)">
+                        <button class="primary-btn">Add Customer</button>
+                    </form>
+                    <div id="customer-list"></div>
+                </div>
+
+                <div class="content-card">
+                    <h3>Record Udhaar</h3>
+                    <form id="credit-form">
+                        <select id="credit-customer" required>
+                            <option value="">Select customer</option>
+                        </select>
+                        <input id="credit-amount" type="number" min="1" placeholder="Amount ₹" required>
+                        <button class="primary-btn">Add Udhaar</button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="inventory" class="page">
+                <div class="content-card">
+                    <h3>Inventory Management</h3>
+                    <form id="product-form">
+                        <input id="product-name" placeholder="Product name" required>
+                        <input id="product-qty" type="number" min="0" placeholder="Quantity" required>
+                        <input id="product-price" type="number" min="0" placeholder="Price ₹" required>
+                        <button class="primary-btn">Add Product</button>
+                    </form>
+                    <div id="product-list"></div>
+                </div>
+            </section>
+
+            <section id="sales" class="page">
+                <div class="content-card">
+                    <h3>Record New Sale</h3>
+                    <form id="sale-form">
+                        <select id="sale-product" required>
+                            <option value="">Select product</option>
+                        </select>
+                        <input id="sale-qty" type="number" min="1" placeholder="Quantity sold" required>
+                        <button class="primary-btn">Record Sale</button>
+                    </form>
+                </div>
+                <div class="content-card">
+                    <h3>Sales History</h3>
+                    <div id="sales-list"></div>
+                </div>
+            </section>
+
+            <section id="assistant" class="page">
+                <div class="content-card assistant-card">
+                    <div class="mic-circle">🎙️</div>
+                    <h2>DukaanMitra Voice Assistant</h2>
+                    <p>Apni dukaan ko Hindi mein command dein.</p>
+
+                    <button class="primary-btn mic-btn" id="voice-btn">
+                        🎙️ Start Speaking
+                    </button>
+
+                    <p id="voice-status">Microphone not started</p>
+
+                    <div class="command-box">
+                        <h3>Recognized Command</h3>
+                        <p id="recognized-text">Your voice command will appear here.</p>
+                    </div>
+
+                    <div class="command-box">
+                        <h3>Assistant Response</h3>
+                        <p id="assistant-response">Namaste! Main aapki madad ke liye taiyar hoon.</p>
+                    </div>
+
+                    <div class="examples">
+                        <h3>Try these commands:</h3>
+                        <p>• Ramesh ke naam 200 rupaye udhaar likho</p>
+                        <p>• Aaj ki total sale batao</p>
+                        <p>• Doodh ka stock 10 add karo</p>
+                        <p>• Ramesh ka udhaar batao</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
